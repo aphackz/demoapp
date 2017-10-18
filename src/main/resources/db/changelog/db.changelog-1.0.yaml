@@ -1,0 +1,31 @@
+databaseChangeLog:
+    - changeSet:
+        id: 1.0-1
+        author: howed
+        comment: Create dummy table
+        changes:
+        - createTable:
+            tableName: dummy
+            columns:
+            - column:
+                name: id
+                type: java.sql.Types.INTEGER
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: version
+                type: java.sql.Types.BIGINT
+                constraints:
+                  nullable: false
+            - column:
+                name: created
+                type: java.sql.Types.TIMESTAMP
+                constraints:
+                  nullable: false
+            - column:
+                name: last_updated
+                type: java.sql.Types.TIMESTAMP
+                constraints:
+                  nullable: false
