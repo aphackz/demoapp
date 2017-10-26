@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout"
+      th:with="currentPage='track'">
+<head>
+    <script th:src="@{/scripts/jquery.subwayMap-0.5.0.js}" src="../static/scripts/jquery.subwayMap-0.5.0.js"></script>
+</head>
+
+<body>
+<div layout:fragment="content">
+    <!-- https://www.kalyani.com/blog/2010/10/08/subway-map-visualization-jquery-plugin/ -->
+    <div th:with="count=1" id="subway-map" data-columns="6" data-rows="2" data-cellSize="200" data-legendId="none" data-textClass="text" data-gridNumbers="false" data-grid="false" data-lineWidth="16">
+        <ul th:each="node : ${article.itinerary.nodes}" data-color="green">
+            <li th:if="${node}.passed" th:with="count=${count}+1" th:data-coords="${count},1"><a href="#">${node.name}</a></li>
+            <!--
+            <li data-coords="2,1"><a href="#">Melbourne</a></li>
+            <li data-coords="3,1"><a href="#">Dandenong</a></li>
+            -->
+        </ul>
+        <!--
+        <ul data-color="red">
+            <li data-coords="3,1"><a href="#">Dandenong</a></li>
+            <li data-coords="4,1"><a href="#">South West Sydney</a></li>
+            <li data-coords="5,1"><a href="#">Bankstown</a></li>
+        </ul>
+        -->
+    </div>
+    <script type="text/javascript">
+        $("#subway-map").subwayMap({ debug: true });
+    </script>
+</div>
+</body>
+</html>

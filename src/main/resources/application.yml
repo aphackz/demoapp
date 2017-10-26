@@ -22,6 +22,12 @@ spring:
     h2:
         console:
             enabled: true
+    data:
+        neo4j:
+            uri: bolt://localhost
+            username: neo4j
+            password: password
+
 demoapp:
     ame-api:
         url: http://ame-api-sdev.ap-southeast-2.elasticbeanstalk.com/api/address
