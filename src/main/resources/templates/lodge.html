@@ -18,6 +18,7 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var args = {
+        DecodeBarCodeRate: null,
         resultFunction: function(result) {
             $('body').append($('<li>' + result.format + ': ' + result.code + '</li>'));
         }
