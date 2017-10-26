@@ -47,7 +47,7 @@ public class ArticleDao {
                                         .putId(1)
                                         .putName("Sydney PF")
                                 )
-                                .putPassed(false)
+                                .putPassed(true)
                                 .putPassedDate(new DateTime())
                         )
                         .addNode(new ItineraryNode()

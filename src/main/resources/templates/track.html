@@ -10,21 +10,13 @@
 <body>
 <div layout:fragment="content">
     <!-- https://www.kalyani.com/blog/2010/10/08/subway-map-visualization-jquery-plugin/ -->
-    <div th:with="count=1" id="subway-map" data-columns="6" data-rows="2" data-cellSize="200" data-legendId="none" data-textClass="text" data-gridNumbers="false" data-grid="false" data-lineWidth="16">
-        <ul th:each="node : ${article.itinerary.nodes}" data-color="green">
-            <li th:if="${node}.passed" th:with="count=${count}+1" th:data-coords="${count},1"><a href="#">${node.name}</a></li>
-            <!--
-            <li data-coords="2,1"><a href="#">Melbourne</a></li>
-            <li data-coords="3,1"><a href="#">Dandenong</a></li>
-            -->
+    <div id="subway-map" data-columns="12" data-rows="2" data-cellSize="100" data-legendId="none" data-textClass="text" data-gridNumbers="false" data-grid="false" data-lineWidth="16">
+        <ul data-color="green">
+            <li th:each="node : ${travelledNodes}" th:attr="data-coords=${node.coords}" th:text="${node.name}">Melbourne</li>
         </ul>
-        <!--
         <ul data-color="red">
-            <li data-coords="3,1"><a href="#">Dandenong</a></li>
-            <li data-coords="4,1"><a href="#">South West Sydney</a></li>
-            <li data-coords="5,1"><a href="#">Bankstown</a></li>
+            <li th:each="node : ${untravelledNodes}" th:attr="data-coords=${node.coords}" th:text="${node.name}">Sydney</li>
         </ul>
-        -->
     </div>
     <script type="text/javascript">
         $("#subway-map").subwayMap({ debug: true });
