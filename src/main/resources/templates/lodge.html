@@ -10,17 +10,80 @@
 
 <body>
 <div layout:fragment="content">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-3">
+                <label for="location">Location:</label>
+                <select id="location" class="form-control">
+                    <option value="OUTLET|1">Retail outlet 1</option>
+                    <option value="OUTLET|2">Retail outlet 2</option>
+                    <option value="OUTLET|3">Retail outlet 3</option>
+                    <option value="OUTLET|4">Retail outlet 4</option>
+                    <option value="PROCESSING_CENTRE|1">Processing centre 1</option>
+                    <option value="PROCESSING_CENTRE|2">Processing centre 2</option>
+                    <option value="DISTRIBUTION_CENTRE|1">Distribution centre 1</option>
+                    <option value="DISTRIBUTION_CENTRE|2">Distribution centre 2</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <label for="eventType">Event:</label>
+                <select id="eventType" class="form-control">
+                    <option value="LODGE">Lodgement</option>
+                    <option value="FACILITY">Facility</option>
+                    <option value="DELIVERY">Delivery</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <canvas id="canvas"></canvas>
     <hr/>
     <select id="select"></select>
     <hr/>
     <ul></ul>
-<script th:inline="javascript">
+    <script th:inline="javascript">
     /*<![CDATA[*/
     var args = {
         DecodeBarCodeRate: null,
         resultFunction: function(result) {
             $('body').append($('<li>' + result.format + ': ' + result.code + '</li>'));
+            var eventType = $("#eventType").val();
+            var locationType = $("#location").val().split('|')[0];
+            var locationId = $("#location").val().split('|')[1];
+            var article = JSON.parse(result.code);
+            var event = {
+                eventType: eventType,
+                locationType: locationType,
+                locationId: locationId,
+                article: {
+                    id: article.id,
+                    name: article.n,
+                    destination: {
+                        line1: article.a.l1,
+                        locality: article.a.l,
+                        state: article.a.s,
+                        postcode: article.a.pc
+                    },
+                    weightKg: article.w,
+                    dimensions: {
+                        x: article.d.x,
+                        y: article.d.y,
+                        z: article.d.z
+                    }
+                }
+            }
+            $.ajax({
+                url: '/rest/event',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(event),
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                success: function(data) {
+                    console.log('success');
+                }
+            });
         }
     };
     var decoder = new WebCodeCamJS("#canvas");
@@ -34,8 +97,7 @@
         }
     });
     /*]]>*/
-</script>
-Lodgement page
+    </script>
 </div>
 </body>
 </html>
