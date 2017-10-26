@@ -4,11 +4,37 @@
       layout:decorator="layout"
       th:with="currentPage='lodge'">
 <head>
-
+    <script th:src="@{/scripts/webcodecamjs-2.7.0.js}" src="../static/scripts/webcodecamjs-2.7.0.js"></script>
+    <script th:src="@{/scripts/qrcodelib-2.7.0.js}" src="../static/scripts/qrcodelib-2.7.0.js"></script>
 </head>
 
 <body>
 <div layout:fragment="content">
+    <canvas id="canvas"></canvas>
+    <hr/>
+    <select id="select"></select>
+    <hr/>
+    <ul></ul>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var args = {
+        DecodeBarCodeRate: null,
+        resultFunction: function(result) {
+            $('body').append($('<li>' + result.format + ': ' + result.code + '</li>'));
+        }
+    };
+    var decoder = new WebCodeCamJS("#canvas");
+    decoder.options.decoderWorker=/*[[@{/scripts/DecoderWorker-2.7.0.js}]]*/
+    decoder.options.beep=/*[[@{/sounds/scannerBeep.mp3}]]*/
+    decoder.buildSelectMenu("#select", "environment|back").init(args);
+    decoder.play();
+    $("#select").change(function() {
+        if (decoder.isInitialized()) {
+            decoder.stop().play();
+        }
+    });
+    /*]]>*/
+</script>
 Lodgement page
 </div>
 </body>
