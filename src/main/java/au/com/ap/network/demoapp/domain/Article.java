@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class Article {
     private Integer id;
     private Itinerary itinerary;
+    private String name;
     private Address destination;
     private BigDecimal weightKg;
     private Dimensions dimensions;
@@ -20,6 +21,11 @@ public class Article {
 
     public Article putItinerary(Itinerary itinerary) {
         this.itinerary = itinerary;
+        return this;
+    }
+
+    public Article putName(String name) {
+        this.name = name;
         return this;
     }
 

@@ -8,8 +8,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class EventVO {
-    enum EventType {LODGE, FACILITY, DELIVERY}
-    enum LocationType {OUTLET, DISTRIBUTION_CENTRE, PROCESSING_CENTRE}
+    public enum EventType {LODGE, FACILITY, DELIVERY}
+
+    public enum LocationType {OUTLET, DISTRIBUTION_CENTRE, PROCESSING_CENTRE, RESIDENTIAL}
 
     private EventType eventType;
     private LocationType locationType;

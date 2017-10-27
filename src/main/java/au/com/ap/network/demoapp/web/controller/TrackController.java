@@ -26,7 +26,7 @@ public class TrackController {
 
     @RequestMapping(path = "/track/{articleId}", method = RequestMethod.GET)
     public ModelAndView get(@PathVariable("articleId") Integer id) {
-        Article article = articleDao.get(1);
+        Article article = articleDao.get(id);
 
         Map<String, Object> model = new HashMap<>();
 
